@@ -14,7 +14,6 @@ def get_rooms():
         rows = cursor.fetchall()
         resp = jsonify(rows)
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -33,7 +32,6 @@ def get_rooms_available():
         rows = cursor.fetchall()
         resp = jsonify(rows)
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -51,7 +49,6 @@ def get_room(id):
         rows = cursor.fetchone()
         resp = jsonify(rows)
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -81,7 +78,6 @@ def add_room():
         conn.commit()
         resp = jsonify('Room added successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -112,7 +108,6 @@ def update_room():
         conn.commit()
         resp = jsonify('Room updated successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -130,7 +125,6 @@ def delete_room(id):
         conn.commit()
         resp = jsonify('Room deleted successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)

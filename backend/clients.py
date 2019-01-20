@@ -14,7 +14,6 @@ def get_clients():
         rows = cursor.fetchall()
         resp = jsonify(rows)
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -32,7 +31,6 @@ def get_client(id):
         rows = cursor.fetchone()
         resp = jsonify(rows)
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -61,7 +59,6 @@ def add_client():
         conn.commit()
         resp = jsonify('Client added successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -91,7 +88,6 @@ def update_client():
         conn.commit()
         resp = jsonify('Client updated successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)
@@ -109,7 +105,6 @@ def delete_client(id):
         conn.commit()
         resp = jsonify('Client deleted successfully!')
         resp.status_code = 200
-        resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception as e:
         print(e)

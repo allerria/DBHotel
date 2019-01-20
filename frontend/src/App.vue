@@ -31,6 +31,7 @@
                     <incomes v-if="showTab === 'incomes'"/>
                 </div>
                 <add-room v-if="showTab === 'add-room'"/>
+                <add-client v-if="showTab === 'add-client'"/>
             </div>
             <hr/>
         </div>
@@ -41,11 +42,16 @@
     import Rooms from './components/Rooms'
     import Incomes from './components/Incomes'
     import AddRoom from './components/AddRoom'
+    import AddClient from './components/AddClient'
 
     export default {
         components: {
             AddRoom,
-            Clients, Incomes, Rooms},
+            Clients,
+            Incomes,
+            Rooms,
+            AddClient
+        },
         data: () => ({
             showTab: getCurHash()
         }),

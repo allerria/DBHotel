@@ -5,6 +5,7 @@ from flask import jsonify
 from flask import request
 from backend.rooms import rooms
 from backend.clients import clients
+from backend.incomes import incomes
 
 
 @app.errorhandler(404)
@@ -62,6 +63,16 @@ def init_database():
 
 app.register_blueprint(rooms)
 app.register_blueprint(clients)
+app.register_blueprint(incomes)
+
+
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    response.headers.add("Access-Control-Allow-Headers", "*")
+    return response
+
 
 if __name__ == "__main__":
     init_database()
