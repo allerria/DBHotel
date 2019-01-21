@@ -27,7 +27,8 @@ def get_client(id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM clients where id=%s", id)
+        cursor.execute(
+            "SELECT * FROM clients where id=%s", id)
         rows = cursor.fetchone()
         resp = jsonify(rows)
         resp.status_code = 200

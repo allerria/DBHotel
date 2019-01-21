@@ -16,8 +16,16 @@ def get_incomes():
         print(from_date, to_date)
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
+        data = (
+            to_date, from_date, from_date, to_date, from_date, to_date, to_date, from_date, from_date, to_date,
+            from_date, to_date)
         cursor.execute(
-            "SELECT SUM(price * (SELECT SUM(DATEDIFF(IF(departure <= %s, departure, %s), departure())) FROM clients WHERE CAST(%s AS DATE) BETWEEN arrival AND departure AND room_number = number AND is_paid = 1)) as daily_incomes FROM rooms;", from_date)
+            "SELECT SUM(price * (SELECT SUM(DATEDIFF(LEAST(departure, %s), GREATEST(%s, arrival)) + 1) FROM clients "
+            "WHERE (arrival BETWEEN %s AND %s OR departure BETWEEN %s AND %s) AND room_number = number AND is_paid = 1 "
+            "AND with_breakfast = 0)) as no_breakfast,SUM(price_with_breakfast * (SELECT SUM(DATEDIFF(LEAST(departure,"
+            " %s), GREATEST(%s, arrival)) + 1) FROM clients WHERE (arrival BETWEEN %s AND %s OR departure BETWEEN %s "
+            "AND %s) AND room_number = number AND is_paid = 1 AND with_breakfast = 1)) as with_breakfast "
+            "FROM rooms;", data)
         rows = cursor.fetchall()
         resp = jsonify(rows)
         resp.status_code = 200

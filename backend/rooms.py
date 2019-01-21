@@ -22,7 +22,7 @@ def get_rooms():
         conn.close()
 
 
-@rooms.route('/rooms_available')
+@rooms.route('/rooms/available')
 def get_rooms_available():
     try:
         conn = mysql.connect()
@@ -45,7 +45,26 @@ def get_room(id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM rooms WHERE id=%s", id)
+        cursor.execute("SELECT *, (SELECT CURDATE() NOT BETWEEN arrival and departure FROM clients WHERE room_number = "
+                       "number) as available FROM rooms WHERE id=%s", id)
+        rows = cursor.fetchone()
+        resp = jsonify(rows)
+        resp.status_code = 200
+        return resp
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@rooms.route('/rooms/number/<number>')
+def get_room_by_number(number):
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT *, (SELECT CURDATE() NOT BETWEEN arrival and departure FROM clients WHERE room_number = "
+                       "number) as available FROM rooms WHERE number=%s", number)
         rows = cursor.fetchone()
         resp = jsonify(rows)
         resp.status_code = 200

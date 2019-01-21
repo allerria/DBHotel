@@ -1,16 +1,10 @@
 <template>
     <div>
-        <a class="btn-success btn" style="margin-top: 20px" href="#add-room">Добавить номер</a>
         <datatable v-bind="$data"/>
     </div>
 </template>
 <script>
-    import Buttons from './Buttons'
-
     export default {
-        components: {
-            Buttons
-        },
         data: () => ({
             columns: [
                 {title: 'ID', field: 'id'},
@@ -22,14 +16,13 @@
                 {title: 'Телефон', field: 'has_phone'},
                 {title: 'Цена', field: 'price'},
                 {title: 'Цена с завтраком', field: 'price_with_breakfast'},
-                {title: 'Действия', tdComp: 'Buttons'}
             ],
             data: [],
             total: 0,
             query: {}
         }),
         mounted() {
-            fetch('http://localhost:5000/rooms')
+            fetch('http://localhost:5000/rooms/available')
                 .then(resp => resp.json())
                 .then(datka => {
                     this.data = datka

@@ -5,7 +5,12 @@
     </div>
 </template>
 <script>
+    import Buttons from './Buttons'
+
     export default {
+        components: {
+            Buttons
+        },
         data: () => ({
             columns: [
                 {title: 'ID', field: 'id'},
@@ -16,6 +21,7 @@
                 {title: 'Дата отправления', field: 'departure'},
                 {title: 'Оплачено', field: 'is_paid'},
                 {title: 'С завтраком', field: 'with_breakfast'},
+                {title: 'Действия', tdComp: 'Buttons'}
             ],
             data: [],
             total: 0,

@@ -8,6 +8,16 @@ from backend.clients import clients
 from backend.incomes import incomes
 
 
+@app.route('/')
+def root():
+    return app.send_static_file('index.html')
+
+
+@app.route('/<path:path>')
+def static_file(path):
+    return app.send_static_file(path)
+
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
