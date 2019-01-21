@@ -1,6 +1,8 @@
 # DBHotel
 
-## Run project from backend directory
+## 1. Import database from hotel.sql
+## 2. Set your db config in db_config.py from backend directory
+## 3. Run project from backend directory
 ```
 python main.py
 ```
@@ -10,3 +12,8 @@ python main.py
 npm run build
 ```
 
+### Report
+
+```
+Отчет.doc
+```
